@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cek Coverage CBN Fiber Jabar</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="container nav">
+
+            <div class="logo">
+                <span>CBN</span> WiFi Jabar
+            </div>
+
+            <nav>
+                <a href="/">Home</a>
+                <a href="/#paket">Paket</a>
+                <a href="/#keunggulan">Keunggulan</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- COVERAGE -->
+    <section class="coverage-page">
+
+        <div class="container">
+
+            <div class="coverage-header">
+
+                <div class="badge">
+                    📍 Cek Coverage Jawa Barat
+                </div>
+
+                <h1>
+                    Cek Coverage CBN Fiber
+                    <span>di Lokasi Anda</span>
+                </h1>
+
+                <p>
+                    Gunakan lokasi HP Anda untuk mengetahui
+                    ketersediaan jaringan CBN Fiber di sekitar lokasi.
+                </p>
+
+            </div>
+
+
+            <!-- CARD -->
+            <div class="coverage-card">
+
+                <div class="coverage-icon">
+                    📍
+                </div>
+
+                <h2>
+                    Gunakan Lokasi Saya
+                </h2>
+
+                <p class="coverage-desc">
+                    Pastikan Anda berada di lokasi rumah yang ingin
+                    dicek, kemudian tekan tombol di bawah.
+                </p>
+
+
+                <!-- BUTTON GPS -->
+                <button
+                    type="button"
+                    id="locationButton"
+                    class="btn btn-primary coverage-button">
+
+                    📍 Gunakan Lokasi Saya
+
+                </button>
+
+
+                <!-- STATUS -->
+                <div id="locationStatus"
+                     class="location-status">
+
+                    Lokasi Anda belum digunakan.
+
+                </div>
+
+
+                <!-- COORDINATE RESULT -->
+                <div id="locationResult"
+                     class="location-result"
+                     style="display: none;">
+
+                    <div class="coordinate-title">
+                        📌 Lokasi ditemukan
+                    </div>
+
+                    <div class="coordinate-box">
+
+                        <div>
+                            <span>Latitude</span>
+                            <strong id="latitude">-</strong>
+                        </div>
+
+                        <div>
+                            <span>Longitude</span>
+                            <strong id="longitude">-</strong>
+                        </div>
+
+                        <div>
+                            <span>Akurasi</span>
+                            <strong>
+                                <span id="accuracy">-</span> meter
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        id="mapsButton"
+                        href="#"
+                        target="_blank"
+                        class="btn btn-outline maps-button">
+
+                        🗺️ Lihat Lokasi di Google Maps
+
+                    </a>
+
+                </div>
+
+
+                <!-- HELP -->
+                <div class="coverage-help">
+
+                    <strong>
+                        💡 Cara menggunakan:
+                    </strong>
+
+                    <ol>
+                        <li>Pastikan GPS/lokasi HP aktif.</li>
+                        <li>Tekan tombol <b>Gunakan Lokasi Saya</b>.</li>
+                        <li>Pilih <b>Izinkan / Allow</b> jika browser meminta izin lokasi.</li>
+                        <li>Tunggu sampai lokasi ditemukan.</li>
+                    </ol>
+
+                </div>
+
+            </div>
+
+
+            <div class="back-home">
+
+                <a href="/">
+                    ← Kembali ke halaman utama
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="container footer-content">
+
+            <div>
+
+                <strong>
+                    CBN WiFi Jabar
+                </strong>
+
+                <p>
+                    Info & pendaftaran CBN Fiber
+                    untuk area Jawa Barat.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 CBN WiFi Jabar — Informasi & Pendaftaran
+
+        </div>
+
+    </footer>
+
+
+    <!-- GPS JAVASCRIPT -->
+    ```html
+<script>
+
+const locationButton =
+    document.getElementById("locationButton");
+
+const locationStatus =
+    document.getElementById("locationStatus");
+
+const locationResult =
+    document.getElementById("locationResult");
+
+const latitudeElement =
+    document.getElementById("latitude");
+
+const longitudeElement =
+    document.getElementById("longitude");
+
+const accuracyElement =
+    document.getElementById("accuracy");
+
+const mapsButton =
+    document.getElementById("mapsButton");
+
+
+locationButton.addEventListener(
+    "click",
+    function () {
+
+
+        if (!navigator.geolocation) {
+
+            locationStatus.innerHTML =
+                "❌ Browser tidak mendukung GPS.";
+
+            return;
+
+        }
+
+
+        locationButton.disabled = true;
+
+        locationButton.innerHTML =
+            "📡 Mencari lokasi...";
+
+        locationStatus.innerHTML =
+            "⏳ Sedang mengambil lokasi HP Anda...";
+
+
+        navigator.geolocation.getCurrentPosition(
+
+            async function(position) {
+
+
+                const latitude =
+                    position.coords.latitude;
+
+                const longitude =
+                    position.coords.longitude;
+
+                const accuracy =
+                    Math.round(
+                        position.coords.accuracy
+                    );
+
+
+                latitudeElement.textContent =
+                    latitude.toFixed(6);
+
+                longitudeElement.textContent =
+                    longitude.toFixed(6);
+
+                accuracyElement.textContent =
+                    accuracy;
+
+
+                mapsButton.href =
+                    "https://www.google.com/maps?q="
+                    + latitude
+                    + ","
+                    + longitude;
+
+
+                locationResult.style.display =
+                    "block";
+
+
+                locationStatus.innerHTML =
+                    "📡 Lokasi ditemukan. Sedang mengecek coverage...";
+
+
+                locationButton.innerHTML =
+                    "⏳ Mengecek Coverage...";
+
+
+                try {
+
+
+                    const response =
+                        await fetch(
+                            "/api/cek-coverage",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    latitude:
+                                        latitude,
+
+                                    longitude:
+                                        longitude
+
+                                })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!data.success) {
+
+                        locationStatus.innerHTML =
+                            "❌ " + data.message;
+
+                        locationButton.disabled =
+                            false;
+
+                        locationButton.innerHTML =
+                            "📍 Coba Lagi";
+
+                        return;
+
+                    }
+
+
+                    tampilkanHasil(
+                        data.hasil
+                    );
+
+
+                    locationButton.disabled =
+                        false;
+
+                    locationButton.innerHTML =
+                        "📍 Cek Lokasi Lagi";
+
+
+                } catch (error) {
+
+
+                    console.error(error);
+
+
+                    locationStatus.innerHTML =
+                        "❌ Gagal terhubung ke server.";
+
+                    locationButton.disabled =
+                        false;
+
+                    locationButton.innerHTML =
+                        "📍 Coba Lagi";
+
+                }
+
+            },
+
+
+            function(error) {
+
+
+                locationButton.disabled =
+                    false;
+
+                locationButton.innerHTML =
+                    "📍 Gunakan Lokasi Saya";
+
+
+                if (error.code === 1) {
+
+                    locationStatus.innerHTML =
+                        "❌ Izin lokasi ditolak. Silakan izinkan akses lokasi.";
+
+                }
+
+                else if (error.code === 2) {
+
+                    locationStatus.innerHTML =
+                        "❌ Lokasi tidak ditemukan. Pastikan GPS HP aktif.";
+
+                }
+
+                else if (error.code === 3) {
+
+                    locationStatus.innerHTML =
+                        "⏳ Waktu mencari lokasi habis. Silakan coba lagi.";
+
+                }
+
+                else {
+
+                    locationStatus.innerHTML =
+                        "❌ Terjadi kesalahan mengambil lokasi.";
+
+                }
+
+            },
+
+
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0
+            }
+
+        );
+
+    }
+);
+
+
+// =========================
+// TAMPILKAN HASIL COVERAGE
+// =========================
+
+function tampilkanHasil(data) {
+
+
+    let statusColor = "#0756a8";
+
+
+    if (data.status_class === "available") {
+
+        statusColor = "#168a45";
+
+    }
+
+    else if (data.status_class === "survey") {
+
+        statusColor = "#d88900";
+
+    }
+
+    else {
+
+        statusColor = "#e30613";
+
+    }
+
+
+    locationStatus.innerHTML = `
+
+        <div style="
+            font-size: 18px;
+            font-weight: 800;
+            color: ${statusColor};
+            margin-bottom: 8px;
+        ">
+
+            ${data.status_icon}
+            ${data.status}
+
+        </div>
+
+        <div>
+            Titik HomeID terdekat:
+            <strong>${data.homeid || "-"}</strong>
+        </div>
+
+        <div>
+            Jarak:
+            <strong>${data.jarak_meter} meter</strong>
+        </div>
+
+    `;
+
+
+    locationResult.insertAdjacentHTML(
+        "beforeend",
+
+        `
+
+        <div class="coverage-detail">
+
+            <div class="coverage-detail-title">
+                📡 Detail Titik Terdekat
+            </div>
+
+            <div class="coverage-detail-grid">
+
+                <div>
+                    <span>HomeID</span>
+                    <strong>
+                        ${data.homeid || "-"}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Project</span>
+                    <strong>
+                        ${data.project_name || "-"}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Project ID</span>
+                    <strong>
+                        ${data.project_id || "-"}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Kota</span>
+                    <strong>
+                        ${data.city || "-"}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Kecamatan</span>
+                    <strong>
+                        ${data.subdistrict || "-"}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Kelurahan</span>
+                    <strong>
+                        ${data.village || "-"}
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        `
+    );
+
+}
+
+</script>
+
+
+</body>
+</html>
