@@ -1689,3 +1689,76 @@ class="btn btn-outline">
 </div>
 
 </section>
+
+/* =========================================================
+   ADD-ON LOGOS
+   ========================================================= */
+
+.addon-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    margin-bottom: 15px;
+}
+
+.addon-icon > img {
+    display: block;
+    width: auto;
+    max-width: 150px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.addon-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 65px;
+}
+
+.addon-logos img {
+    width: auto;
+    max-width: 105px;
+    height: 55px;
+    object-fit: contain;
+}
+
+/* Logo Vidio */
+.addon-icon img[alt="Vidio"] {
+    max-width: 150px;
+    height: 65px;
+}
+
+/* Logo DensTV */
+.addon-icon img[alt="DensTV"] {
+    max-width: 150px;
+    height: 65px;
+}
+
+/* Logo Genflix + CubMu */
+.addon-logos img[alt="Genflix"],
+.addon-logos img[alt="CubMu"] {
+    max-width: 105px;
+    height: 55px;
+}
+
+@media (max-width: 600px) {
+
+    .addon-icon {
+        min-height: 70px;
+    }
+
+    .addon-icon > img {
+        max-width: 125px;
+        height: 55px;
+    }
+
+    .addon-logos img {
+        max-width: 90px;
+        height: 48px;
+    }
+
+}
+
